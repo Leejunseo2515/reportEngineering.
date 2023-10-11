@@ -3,13 +3,13 @@ processing code
 import processing.serial.*;
   Serial p;
 void setup(){
-  p = new Serial(this,"COM3",9600);
+  p = new Serial(this,"COM3",9600); //시리얼 객체 초기화, 시리얼 포트, 9600bit의 통신 속도 제한
 }
 void draw(){
   if(p.available()>0){
-    String m = p.readStringUntil('\n');
+    String m = p.readStringUntil('\n'); //시리얼에서 읽은 데이터를 문자열 m에 저장
     if(m!=null)
-    print (m);
+    print (m); // 데이터 출력
   }
 }
 
@@ -20,17 +20,19 @@ arduino code
 ----------------------------------------------------------
 
 void setup(){
-  Serial.begin(9600);
+  Serial.begin(9600); // 시리얼 통신속도 9600bit로 제한
 }
 double th(int v) {
-  double t;
+  double t; // 온도값 변수 지정
   t = log(((10240000/v) - 10000));
   t = 1 /(0.001129148 + (0.000234125*t) + (0.0000000876741*t*t*t));
-  t = t - 273.15;
+  t = t - 273.15; // 화씨를 섭씨로 변환
   return t;
 }
-void loop(){
-  int s= analogRead(th (s));
-  delay(500);
+void loop(){ 
+  int s= analogRead(th (s)); // th(s)함수 호출해서 아날로그 입력값을 읽고 s에 저장
+  delay(500); // 1ms
 }
 -----------------------------------------------------------
+
+
